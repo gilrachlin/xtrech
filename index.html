@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenBasics — AI & Technology Consulting</title>
+  <meta name="description" content="OpenBasics builds AI tools and operates as product partners for businesses ready to move fast. Strategy, software, and systems — shipped." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f6f2;
+      --white: #ffffff;
+      --ink: #141210;
+      --ink2: #3a3632;
+      --muted: #8a8680;
+      --border: #e4e2dc;
+      --border2: #d0cec7;
+      --accent: #1a6bff;
+      --accent-light: #e8f0ff;
+      --green: #1db87a;
+      --surface: #ffffff;
+      --tag-bg: #eeecea;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(247, 246, 242, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 1px 24px rgba(0,0,0,0.06); }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .btn-nav {
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.55rem 1.35rem;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding: 9rem 2.5rem 5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-shapes {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+    }
+    .shape-1 {
+      width: 500px; height: 500px;
+      right: -80px; top: 40px;
+      background: radial-gradient(circle at 40% 40%, #ddeeff 0%, #eef5ff 45%, transparent 72%);
+      animation: float1 12s ease-in-out infinite;
+    }
+    .shape-2 {
+      width: 200px; height: 200px;
+      right: 340px; top: 100px;
+      background: radial-gradient(circle, #fff8ed 0%, transparent 70%);
+      animation: float2 9s ease-in-out infinite;
+    }
+    .shape-3 {
+      width: 130px; height: 130px;
+      right: 200px; top: 360px;
+      background: radial-gradient(circle, #e2faf0 0%, transparent 70%);
+      animation: float1 14s ease-in-out infinite reverse;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translate(0,0) rotate(0deg); }
+      33% { transform: translate(10px,-16px) rotate(3deg); }
+      66% { transform: translate(-8px, 10px) rotate(-2deg); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0,0); }
+      50% { transform: translate(-12px, 18px); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.35rem 0.9rem 0.35rem 0.5rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink2);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: popIn 0.5s 0.1s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity:1; }
+      50% { opacity:0.3; }
+    }
+
+    .hero-headline {
+      font-weight: 800;
+      font-size: clamp(3.2rem, 6.5vw, 6.4rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      max-width: 14ch;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s ease forwards;
+    }
+    .hero-headline em {
+      font-style: italic;
+      font-family: 'Instrument Serif', serif;
+      color: var(--accent);
+    }
+
+    .hero-sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: end;
+      max-width: 860px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.45s ease forwards;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--ink2);
+      line-height: 1.75;
+    }
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,107,255,0.25);
+    }
+    .btn-primary svg { transition: transform 0.2s; }
+    .btn-primary:hover svg { transform: translateX(3px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--ink); }
+
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 4rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s ease forwards;
+    }
+    .proof-avatars { display: flex; }
+    .proof-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      margin-left: -8px;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--ink2);
+    }
+    .proof-avatar:first-child { margin-left: 0; }
+    .p1{background:#ddeeff;} .p2{background:#ffe8e0;} .p3{background:#e0faf0;} .p4{background:#f5e8ff;}
+    .proof-text { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+    .proof-text strong { color: var(--ink); }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .trust-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 0.5rem;
+    }
+    .trust-items { display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap; }
+    .trust-item {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--border2);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem;
+    }
+    .section-wrap + .section-wrap,
+    .section-wrap + .trust-bar { border-top: 1px solid var(--border); }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .eyebrow::before { content:''; width:20px; height:2px; background:var(--accent); }
+
+    .section-title {
+      font-weight: 800;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+    .section-title em {
+      font-style: italic;
+      font-family: 'Instrument Serif', serif;
+      color: var(--muted);
+    }
+
+    /* ─── SERVICES ─── */
+    .services-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .sticky-left { position: sticky; top: 6rem; }
+    .section-intro {
+      color: var(--ink2);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-top: 1.25rem;
+      max-width: 30ch;
+    }
+
+    .services-list { display: flex; flex-direction: column; }
+    .service-row {
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      gap: 1.25rem;
+      align-items: start;
+      padding: 1.75rem 1.25rem;
+      margin: 0 -1.25rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      border-radius: 12px;
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-row:hover { background: var(--white); }
+
+    .service-icon-wrap {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--tag-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .service-row:hover .service-icon-wrap { background: var(--accent-light); }
+
+    .service-name { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.35rem; }
+    .service-blurb { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
+    .service-arrow { color: var(--border2); font-size: 1.1rem; padding-top: 0.2rem; transition: color 0.2s, transform 0.2s; }
+    .service-row:hover .service-arrow { color: var(--accent); transform: translateX(4px); }
+
+    /* ─── HOW ─── */
+    .how-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      align-items: end;
+    }
+    .how-desc { font-size: 0.95rem; color: var(--ink2); line-height: 1.8; align-self: end; }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 1.5rem;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #5b9fff);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .step-card:hover::before { opacity: 1; }
+    .step-num-label { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .step-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+    .step-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── TOOLS ─── */
+    .tools-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      align-items: end;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .tool-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.07); border-color: var(--border2); }
+    .tool-card.wide {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 60%);
+      border-color: rgba(26,107,255,0.15);
+    }
+    .tool-tag {
+      display: inline-block;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 100px;
+      background: var(--tag-bg);
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .tool-card.wide .tool-tag { background: var(--accent-light); color: var(--accent); }
+    .tool-name { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.6rem; }
+    .tool-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .tool-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+    .tool-pill { font-size: 0.67rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 100px; background: var(--tag-bg); color: var(--ink2); }
+    .tool-visual { display: flex; align-items: center; justify-content: center; min-height: 120px; }
+    .tool-visual-inner {
+      width: 100px; height: 100px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--accent) 0%, #5b9fff 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: 0 8px 32px rgba(26,107,255,0.25);
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p { font-size: 0.95rem; color: var(--ink2); line-height: 1.85; margin-bottom: 1.25rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .big-quote {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 1.45rem;
+      color: var(--ink);
+      line-height: 1.45;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); }
+    .stat-num { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-bottom: 0.4rem; }
+    .stat-num .accent { color: var(--accent); }
+    .stat-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ─── CTA ─── */
+    #contact { padding: 0 2.5rem 6rem; max-width: 1280px; margin: 0 auto; }
+    .cta-card {
+      background: var(--ink);
+      border-radius: 28px;
+      padding: 5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,107,255,0.3) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .cta-title { font-weight: 800; font-size: clamp(2rem,3.5vw,3.2rem); letter-spacing: -0.04em; line-height: 1.05; color: var(--white); max-width: 18ch; }
+    .cta-title em { font-style: italic; font-family: 'Instrument Serif', serif; color: rgba(255,255,255,0.5); }
+    .cta-sub { font-size: 0.92rem; color: rgba(255,255,255,0.5); margin-top: 1rem; line-height: 1.75; }
+    .cta-right { display: flex; flex-direction: column; align-items: center; gap: 1rem; flex-shrink: 0; position: relative; z-index: 1; }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 1rem;
+      padding: 1rem 2.25rem;
+      background: var(--white); color: var(--ink);
+      text-decoration: none; border-radius: 100px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .btn-cta:hover { background: var(--accent); color: var(--white); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(26,107,255,0.4); }
+    .cta-email { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .cta-email a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .cta-email a:hover { color: var(--white); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { font-weight: 800; font-size: 0.95rem; letter-spacing: -0.02em; }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.75rem; }
+    .footer-links a { font-size: 0.78rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes popIn { from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);} }
+
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.65s ease,transform 0.65s ease; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+
+    /* ─── MOBILE ─── */
+    @media(max-width:960px){
+      nav{padding:1rem 1.25rem;}
+      .nav-links{display:none;}
+      #hero{padding:7rem 1.25rem 4rem;}
+      .hero-sub-grid{grid-template-columns:1fr;}
+      .section-wrap{padding:4rem 1.25rem;}
+      .services-layout{grid-template-columns:1fr;}
+      .sticky-left{position:static;}
+      .how-header{grid-template-columns:1fr;}
+      .steps-grid{grid-template-columns:1fr 1fr;}
+      .tools-header{grid-template-columns:1fr;}
+      .tools-grid{grid-template-columns:1fr;}
+      .tool-card.wide{grid-column:span 1;grid-template-columns:1fr;}
+      .about-grid{grid-template-columns:1fr;}
+      .cta-card{grid-template-columns:1fr;padding:3rem 2rem;}
+      footer{flex-direction:column;gap:1rem;text-align:center;}
+    }
+    @media(max-width:600px){
+      .steps-grid{grid-template-columns:1fr;}
+      .stats-grid{grid-template-columns:1fr;}
+    }
+
+    /* ─── PASSWORD GATE ─── */
+    #ob-gate {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.38s ease;
+    }
+    #ob-gate.ob-fade-out { opacity: 0; pointer-events: none; }
+    #ob-site { display: none; }
+
+    .ob-gate-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      padding: 2rem;
+    }
+    .ob-logo {
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .ob-logo-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+    .ob-card {
+      width: 100%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+    }
+    .ob-lock {
+      width: 44px; height: 44px;
+      background: var(--accent-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+    .ob-card h2 {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+    .ob-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+    #ob-pw-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+    #ob-pw-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,107,255,0.12);
+      background: var(--white);
+    }
+    #ob-pw-input::placeholder { color: var(--border2); }
+    #ob-err {
+      font-size: 0.78rem;
+      color: #d93025;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+      margin-bottom: 1rem;
+      display: block;
+      min-height: 1.2em;
+    }
+    #ob-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    #ob-submit:hover { background: var(--accent); transform: translateY(-1px); }
+    @keyframes ob-shake {
+      0%,100%{transform:translateX(0);}
+      20%{transform:translateX(-7px);}
+      40%{transform:translateX(7px);}
+      60%{transform:translateX(-4px);}
+      80%{transform:translateX(4px);}
+    }
+    .ob-shake { animation: ob-shake 0.45s ease; border-color: #d93025 !important; }
+  </style>
+</head>
+<body>
+
+  <!-- PASSWORD GATE -->
+  <div id="ob-gate">
+    <div class="ob-gate-inner">
+      <div class="ob-logo"><span class="ob-logo-dot"></span>OpenBasics</div>
+      <div class="ob-card">
+        <div class="ob-lock">🔒</div>
+        <h2>Private access</h2>
+        <p>This site is currently invite-only. Enter the password to continue.</p>
+        <input id="ob-pw-input" type="password" placeholder="Enter password" autocomplete="current-password" />
+        <span id="ob-err">Incorrect password — try again.</span>
+        <button id="ob-submit" onclick="tryPassword()">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE CONTENT -->
+  <div id="ob-site">
+
+  <nav id="nav">
+    <a href="#" class="logo"><span class="logo-dot"></span>OpenBasics</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">Process</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a href="#contact" class="btn-nav">Start a project →</a>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
+    <div class="hero-badge"><span class="badge-dot"></span> Now accepting new clients — 2026</div>
+
+    <h1 class="hero-headline">Open tools.<br/><em>Real</em> results.</h1>
+
+    <div class="hero-sub-grid">
+      <p class="hero-desc">OpenBasics is a technology and AI consulting firm that builds. We embed as product operators inside your business — shipping AI strategy, custom software, and automation tools your team actually uses.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          Let's build together
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#services" class="btn-secondary">See what we do ↓</a>
+      </div>
+    </div>
+
+    <div class="hero-proof">
+      <div class="proof-avatars">
+        <div class="proof-avatar p1">A</div>
+        <div class="proof-avatar p2">B</div>
+        <div class="proof-avatar p3">C</div>
+        <div class="proof-avatar p4">D</div>
+      </div>
+      <p class="proof-text">Trusted by <strong>teams building for real</strong> — from startups to established firms</p>
+    </div>
+  </div>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <span class="trust-label">Built with</span>
+    <div class="trust-items">
+      <span class="trust-item">Claude API</span>
+      <span class="trust-item">OpenAI</span>
+      <span class="trust-item">Supabase</span>
+      <span class="trust-item">Vercel</span>
+      <span class="trust-item">Next.js</span>
+      <span class="trust-item">Python</span>
+      <span class="trust-item">Zapier</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section-wrap" id="services">
+    <div class="services-layout reveal">
+      <div class="sticky-left">
+        <span class="eyebrow">What We Do</span>
+        <h2 class="section-title">Everything<br/>to <em>ship.</em></h2>
+        <p class="section-intro">We advise, operate, and build — all under one roof. No handoffs to junior teams. No slides without follow-through.</p>
+        <a href="#contact" class="btn-primary" style="margin-top:2rem;display:inline-flex;">
+          Work with us
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="services-list">
+        <div class="service-row">
+          <div class="service-icon-wrap">🧭</div>
+          <div><h3 class="service-name">AI Strategy & Consulting</h3><p class="service-blurb">Honest, grounded AI strategy — where it creates real leverage for your business, and where it doesn't. No hype.</p></div>
+          <span class="service-arrow">→</span>
+        </div>
+        <div class="service-row">
+          <div class="service-icon-wrap">⚙️</div>
+          <div><h3 class="service-name">Product Operations</h3><p class="service-blurb">We embed directly as operators — running sprints, setting priorities, driving outcomes like a co-founder at your side.</p></div>
+          <span class="service-arrow">→</span>
+        </div>
+        <div class="service-row">
+          <div class="service-icon-wrap">🛠️</div>
+          <div><h3 class="service-name">Custom Tool Building</h3><p class="service-blurb">Internal dashboards, AI-powered automations, client-facing apps. Built exactly for your workflow, not from a template.</p></div>
+          <span class="service-arrow">→</span>
+        </div>
+        <div class="service-row">
+          <div class="service-icon-wrap">🤖</div>
+          <div><h3 class="service-name">LLM Integration</h3><p class="service-blurb">Production-grade AI features — retrieval, agents, structured outputs — integrated cleanly into your existing systems.</p></div>
+          <span class="service-arrow">→</span>
+        </div>
+        <div class="service-row">
+          <div class="service-icon-wrap">⚡</div>
+          <div><h3 class="service-name">Process Automation</h3><p class="service-blurb">Map, redesign, and automate your core workflows. We find the hours your team loses every week and give them back.</p></div>
+          <span class="service-arrow">→</span>
+        </div>
+        <div class="service-row">
+          <div class="service-icon-wrap">🚀</div>
+          <div><h3 class="service-name">Rapid Prototyping</h3><p class="service-blurb">From idea to working prototype in days, not months. Pressure-test concepts fast — invest only in what works.</p></div>
+          <span class="service-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW -->
+  <div class="section-wrap" id="how">
+    <div class="how-header reveal">
+      <div>
+        <span class="eyebrow">How We Work</span>
+        <h2 class="section-title">Operators,<br/>not <em>advisors.</em></h2>
+      </div>
+      <p class="how-desc">Most consultants hand you a slide deck and disappear. We stay, build, and operate. Every engagement ends with working software — not a playbook collecting dust.</p>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <p class="step-num-label">Step 01</p>
+        <h3 class="step-title">Discovery & Audit</h3>
+        <p class="step-desc">We spend the first week understanding your workflows, tools, team structure, and pain points. No templates — every engagement starts with listening.</p>
+      </div>
+      <div class="step-card">
+        <p class="step-num-label">Step 02</p>
+        <h3 class="step-title">Strategy & Scope</h3>
+        <p class="step-desc">A clear path: what to build, where AI applies, what to skip. We agree on a tight scope before writing a line of code.</p>
+      </div>
+      <div class="step-card">
+        <p class="step-num-label">Step 03</p>
+        <h3 class="step-title">Build & Iterate</h3>
+        <p class="step-desc">Fast sprints, real feedback loops. We ship working software weekly and adjust based on what your team actually does with it.</p>
+      </div>
+      <div class="step-card">
+        <p class="step-num-label">Step 04</p>
+        <h3 class="step-title">Operate & Improve</h3>
+        <p class="step-desc">We stay on to run the systems we build. Monitoring, improvements, new features — tools don't go stale when the project closes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section-wrap" id="tools">
+    <div class="tools-header reveal">
+      <div>
+        <span class="eyebrow">Tools We Build</span>
+        <h2 class="section-title">Software for<br/><em>real work.</em></h2>
+      </div>
+      <p class="how-desc">A sample of tools we've designed, built, and deployed for clients. Each purpose-built for a specific problem — no off-the-shelf templates.</p>
+    </div>
+    <div class="tools-grid reveal">
+      <div class="tool-card wide">
+        <div>
+          <span class="tool-tag">AI · Featured</span>
+          <h3 class="tool-name">Briefing Engine</h3>
+          <p class="tool-desc">An AI-powered research tool that synthesizes documents, emails, and data sources into structured summaries — cutting research time by 80%.</p>
+          <div class="tool-pills">
+            <span class="tool-pill">Claude API</span>
+            <span class="tool-pill">RAG</span>
+            <span class="tool-pill">Next.js</span>
+            <span class="tool-pill">Postgres</span>
+          </div>
+        </div>
+        <div class="tool-visual"><div class="tool-visual-inner">🧠</div></div>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Automation</span>
+        <h3 class="tool-name">Pipeline Tracker</h3>
+        <p class="tool-desc">A custom CRM replacing three disconnected spreadsheets with one live dashboard for a 12-person services firm.</p>
+        <div class="tool-pills"><span class="tool-pill">React</span><span class="tool-pill">Airtable API</span></div>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">AI · Client-Facing</span>
+        <h3 class="tool-name">Intake Assistant</h3>
+        <p class="tool-desc">A conversational AI that qualifies, routes, and captures inbound requests — cutting manual intake time by 70%.</p>
+        <div class="tool-pills"><span class="tool-pill">LLM Agents</span><span class="tool-pill">Webhooks</span></div>
+      </div>
+      <div class="tool-card">
+        <span class="tool-tag">Data · Analytics</span>
+        <h3 class="tool-name">Ops Intelligence</h3>
+        <p class="tool-desc">A live dashboard connecting project data, financials, and team utilization — one source of truth for leadership.</p>
+        <div class="tool-pills"><span class="tool-pill">Python</span><span class="tool-pill">Metabase</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-wrap" id="about">
+    <div class="about-grid reveal">
+      <div>
+        <span class="eyebrow">About</span>
+        <h2 class="section-title" style="margin-bottom:2rem;">Built by<br/><em>operators.</em></h2>
+        <div class="about-text">
+          <p>OpenBasics is a small, senior team. We've shipped products inside startups, managed operations at scale, and integrated AI into workflows that people depend on daily.</p>
+          <blockquote class="big-quote">"We founded OpenBasics because strategy without software is just a document."</blockquote>
+          <p>We work with a focused set of clients at a time — no factories, no junior-heavy delivery. When you work with OpenBasics, you get the people who designed the engagement doing the actual work.</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">48<span class="accent">h</span></div><div class="stat-label">To first prototype</div></div>
+        <div class="stat-card"><div class="stat-num">100<span class="accent">%</span></div><div class="stat-label">Senior practitioners</div></div>
+        <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">Decks without follow-up</div></div>
+        <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Commitment to outcomes</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div id="contact">
+    <div class="cta-card reveal">
+      <div style="position:relative;z-index:1;">
+        <p class="cta-eyebrow">Get Started</p>
+        <h2 class="cta-title">Ready to build something <em>real?</em></h2>
+        <p class="cta-sub">Tell us what you're trying to solve. We'll be honest about what's possible and move fast on what is.</p>
+      </div>
+      <div class="cta-right">
+        <a href="mailto:hello@openbasics.com" class="btn-cta">Start a conversation →</a>
+        <p class="cta-email"><a href="mailto:hello@openbasics.com">hello@openbasics.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">OpenBasics</div>
+    <p class="footer-copy">© 2026 OpenBasics. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#how">Process</a>
+      <a href="#tools">Tools</a>
+      <a href="mailto:hello@openbasics.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ─── PASSWORD GATE ───────────────────────────────────────────
+    // Change this to whatever password you want
+    const SITE_PASSWORD = 'openbasics2026';
+    const SESSION_KEY   = 'ob_auth';
+
+    function showGate() {
+      document.getElementById('ob-gate').style.display = 'flex';
+      document.getElementById('ob-site').style.display  = 'none';
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('ob-pw-input').focus(), 100);
+    }
+    function showSite() {
+      document.getElementById('ob-gate').style.display = 'none';
+      document.getElementById('ob-site').style.display  = 'block';
+      document.body.style.overflow = '';
+    }
+    function tryPassword() {
+      const val = document.getElementById('ob-pw-input').value;
+      if (val === SITE_PASSWORD) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        document.getElementById('ob-gate').classList.add('ob-fade-out');
+        setTimeout(showSite, 380);
+      } else {
+        const input = document.getElementById('ob-pw-input');
+        const err   = document.getElementById('ob-err');
+        input.classList.add('ob-shake');
+        err.style.opacity = '1';
+        setTimeout(() => input.classList.remove('ob-shake'), 500);
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    // Check session on load
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      document.addEventListener('DOMContentLoaded', showSite);
+    } else {
+      document.addEventListener('DOMContentLoaded', showGate);
+    }
+
+    // Allow Enter key
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('ob-pw-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') tryPassword();
+        document.getElementById('ob-err').style.opacity = '0';
+      });
+    });
+    // ─────────────────────────────────────────────────────────────
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => {
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = i * 0.05 + 's';
+          e.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>  </div><!-- /ob-site -->
+
+</body>
+</html>
